@@ -7,7 +7,5 @@ resource "aws_api_gateway_method_settings" "post_tests" {
     metrics_enabled = true
     logging_level   = "INFO"
     data_trace_enabled = true
-    throttling_burst_limit = 50
-    throttling_rate_limit = 100
   }
 }

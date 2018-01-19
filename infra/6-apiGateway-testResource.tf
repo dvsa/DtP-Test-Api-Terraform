@@ -31,7 +31,8 @@ resource "aws_api_gateway_method" "post_tests_resource" {
   request_parameters = {
     "method.request.header.Content-Type" = true,
     "method.request.header.organisation" = true,
-    "method.request.header.date" = true
+    "method.request.header.date" = true,
+    "method.request.header.x-api-key" = true
   }
 }
 
@@ -84,7 +85,7 @@ resource "aws_api_gateway_integration_response" "dtp_post_tests_mock_200" {
 EOF
   }
 
-  depends_on = ["aws_api_gateway_integration.dtp_post_tests_mock"]
+  depends_on = ["aws_api_gateway_integration_response.dtp_post_tests_mock_422"]
 }
 
 resource "aws_api_gateway_method_response" "dtp_post_tests_mock_422" {
@@ -118,7 +119,7 @@ resource "aws_api_gateway_integration_response" "dtp_post_tests_mock_422" {
 EOF
   }
 
-  depends_on = ["aws_api_gateway_integration.dtp_post_tests_mock"]
+  depends_on = ["aws_api_gateway_integration_response.dtp_post_tests_mock_503"]
 }
 
 resource "aws_api_gateway_method_response" "dtp_post_tests_mock_503" {
@@ -144,7 +145,7 @@ resource "aws_api_gateway_integration_response" "dtp_post_tests_mock_503" {
 EOF
   }
 
-  depends_on = ["aws_api_gateway_integration.dtp_post_tests_mock"]
+  depends_on = ["aws_api_gateway_integration_response.dtp_post_tests_mock_500"]
 }
 
 resource "aws_api_gateway_method_response" "dtp_post_tests_mock_500" {
