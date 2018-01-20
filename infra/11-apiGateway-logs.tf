@@ -47,3 +47,14 @@ resource "aws_iam_role_policy" "cloudwatch" {
 }
 EOF
 }
+
+resource "aws_cloudwatch_log_group" "log_group" {
+  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.dtp_mock.id}/${var.dtp_api_version}"
+  retention_in_days = "${var.api_gateway_log_retention}"
+
+  tags {
+    Name            = "${var.project}-${var.environment}-ApiGateway"
+    Project         = "${var.project}"
+    Environment     = "${var.environment}"
+  }
+}

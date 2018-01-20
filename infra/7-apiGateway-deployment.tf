@@ -8,6 +8,7 @@ resource "aws_api_gateway_deployment" "mock_deployment" {
     "aws_api_gateway_integration_response.dtp_post_tests_mock_200",
     "aws_api_gateway_integration_response.dtp_post_tests_mock_422",
     "aws_api_gateway_integration_response.dtp_post_tests_mock_503",
-    "aws_api_gateway_integration_response.dtp_post_tests_mock_500"
+    "aws_api_gateway_integration_response.dtp_post_tests_mock_500",
+    "aws_cloudwatch_log_group.log_group"
     ]
 }

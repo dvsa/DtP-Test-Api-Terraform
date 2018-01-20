@@ -1,3 +1,7 @@
+variable project {
+  default = "Develop-The-Profession-MOCK"
+}
+
 variable environment {
   default = "dev"
 }
@@ -16,6 +20,10 @@ variable mot_DtP_mock_api_enabled {
 
 variable dtp_api_version {
   default = "v1"
+}
+
+variable api_gateway_log_retention {
+  default = "30"
 }
 
 variable ABC_usage_plan {
