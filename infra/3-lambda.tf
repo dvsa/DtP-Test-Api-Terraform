@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "fake_dtp_api" {
   count             = "${var.mot_DtP_mock_api_enabled}"
-  function_name     = "fake_dtp_api-${var.environment}"
-  handler           = "index.handler"
+  function_name     = "fake-dtp-api-${var.environment}"
+  handler           = "src/index.handler"
   runtime           = "nodejs6.10"
   filename          = "./../app/dist/fakeDtPapi.zip"
   source_code_hash  = "${base64sha256(file("./../app/dist/fakeDtPapi.zip"))}"
@@ -10,7 +10,7 @@ resource "aws_lambda_function" "fake_dtp_api" {
 
 resource "aws_iam_role" "lambda_exec_role" {
   count               = "${var.mot_DtP_mock_api_enabled}"
-  name                = "lambda_exec_role-${var.environment}"
+  name                = "lambda-exec-role-${var.environment}"
   assume_role_policy  = <<EOF
 {
   "Version": "2012-10-17",
