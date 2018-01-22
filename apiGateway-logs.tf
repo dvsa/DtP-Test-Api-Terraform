@@ -3,8 +3,7 @@ resource "aws_api_gateway_account" "global" {
 }
 
 resource "aws_iam_role" "cloudwatch" {
-    name  = "${var.project}_${var.environment}_api_gateway_cloudwatch_global"
-
+  name  = "${var.project}_${var.environment}_api_gateway_cloudwatch_global"
   assume_role_policy = "${data.template_file.api_gateway_assume_policy.rendered}"
 }
 

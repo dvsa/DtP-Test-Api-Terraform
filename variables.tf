@@ -23,7 +23,7 @@ variable "logs_retention" {
 }
 
 variable "ABC_usage_plan" {
-  default {
+  default = {
     organization_name     = "ABC"
     quota_limit           = 1000
     quota_period          = "DAY"
@@ -34,7 +34,7 @@ variable "ABC_usage_plan" {
 }
 
 variable "IMI_usage_plan" {
-  default {
+  default = {
     organization_name     = "IMI"
     quota_limit           = 1000
     quota_period          = "DAY"
@@ -45,7 +45,7 @@ variable "IMI_usage_plan" {
 }
 
 variable "CandG_usage_plan" {
-  default {
+  default = {
     organization_name     = "CandG"
     quota_limit           = 1000
     quota_period          = "DAY"
@@ -56,7 +56,7 @@ variable "CandG_usage_plan" {
 }
 
 variable "Kainos_usage_plan" {
-  default {
+  default = {
     organization_name     = "Kainos"
     quota_limit           = 1000
     quota_period          = "DAY"

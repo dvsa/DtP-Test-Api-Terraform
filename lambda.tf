@@ -6,6 +6,12 @@ resource "aws_lambda_function" "fake_dtp_api" {
   filename          = "${var.dtp_lambda_zip_location}"
   source_code_hash  = "${base64sha256(file("${var.dtp_lambda_zip_location}"))}"
   role              = "${aws_iam_role.lambda_exec_role.arn}"
+  
+  tags {
+    Name            = "${var.project}-${var.environment}-ApiGateway"
+    Project         = "${var.project}"
+    Environment     = "${var.environment}"
+  }
 }
 
 resource "aws_iam_role" "lambda_exec_role" {
