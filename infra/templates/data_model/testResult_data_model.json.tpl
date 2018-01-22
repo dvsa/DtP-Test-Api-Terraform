@@ -1,38 +1,3 @@
-resource "aws_api_gateway_model" "ProcessingResult" {
-  count = "${var.mot_DtP_mock_api_enabled}"
-  rest_api_id  = "${aws_api_gateway_rest_api.dtp_mock.id}"
-  name         = "ProcessingResult"
-  description  = "Data model used to return processing result to api user."
-  content_type = "application/json"
-
-  schema = <<EOF
-{
-  "$schema" : "http://json-schema.org/draft-04/schema#",
-  "title" : "Data processing status",
-  "type" : "object",
-  "minProperties": 1,
-  "maxProperties": 1,
-  "additionalProperties": false,
-  "required" : [ "statusCode" ],
-  "properties" : {
-    "statusCode" : {
-      "description": "Processing result",
-      "type" : "string",
-      "enum" : [ "OK", "NODVSAID", "NOMATCH", "SYSERR" ]
-    }
-  }
-}
-EOF
-}
-
-resource "aws_api_gateway_model" "TestResult" {
-  count = "${var.mot_DtP_mock_api_enabled}"
-  rest_api_id  = "${aws_api_gateway_rest_api.dtp_mock.id}"
-  name         = "TestResult"
-  description  = "Test result data model required by api."
-  content_type = "application/json"
-
-  schema = <<EOF
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title" : "Annual Assessment test result data structure",
@@ -119,6 +84,4 @@ resource "aws_api_gateway_model" "TestResult" {
     "organisation",
     "date"
   ]
-}
-EOF
 }

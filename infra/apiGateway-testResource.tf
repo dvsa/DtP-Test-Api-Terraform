@@ -48,11 +48,7 @@ resource "aws_api_gateway_integration" "dtp_post_tests_mock" {
   content_handling = "CONVERT_TO_TEXT"
 
   request_templates = {
-    "application/json"    = <<EOF
-{
-  "personName" : $input.json('$.testResult.forename')
-}
-EOF
+    "application/json"    = "${data.template_file.request_integration_mapping.rendered}"
   }
 }
 
@@ -77,11 +73,7 @@ resource "aws_api_gateway_integration_response" "dtp_post_tests_mock_200" {
   selection_pattern = ".*success.*"
 
   response_templates = {
-    "application/json" = <<EOF
-{
-  "statusCode": "OK"
-}
-EOF
+    "application/json" = "${data.template_file.200_response_integration_mapping.rendered}"
   }
 
   depends_on = ["aws_api_gateway_integration_response.dtp_post_tests_mock_422"]
@@ -104,18 +96,7 @@ resource "aws_api_gateway_integration_response" "dtp_post_tests_mock_422" {
   selection_pattern = ".*dataError.*"
 
   response_templates = {
-    "application/json" = <<EOF
-#set($payload = $util.parseJson($input.path('$.errorMessage')))
-{
-    #if($payload.personName.contains("NODVSAID"))
-        "statusCode": "NODVSAID"
-    #elseif($payload.personName.contains("NOMATCH"))
-        "statusCode": "NOMATCH"
-    #else
-        "statusCode": "SYSERR"
-    #end
-}
-EOF
+    "application/json" = "${data.template_file.422_response_integration_mapping.rendered}"
   }
 
   depends_on = ["aws_api_gateway_integration_response.dtp_post_tests_mock_503"]
@@ -138,10 +119,7 @@ resource "aws_api_gateway_integration_response" "dtp_post_tests_mock_503" {
   selection_pattern = ".*serverError.*"
 
   response_templates = {
-    "application/json" = <<EOF
-{
-}
-EOF
+    "application/json" = "${data.template_file.503_response_integration_mapping.rendered}"
   }
 
   depends_on = ["aws_api_gateway_integration_response.dtp_post_tests_mock_500"]
@@ -163,11 +141,7 @@ resource "aws_api_gateway_integration_response" "dtp_post_tests_mock_500" {
   status_code       = "${aws_api_gateway_method_response.dtp_post_tests_mock_500.status_code}"
 
   response_templates = {
-    "application/json" = <<EOF
-{
-  "message": "Internal server error - Incorrect test data"
-}
-EOF
+    "application/json" = "${data.template_file.500_response_integration_mapping.rendered}"
   }
   
   depends_on = ["aws_api_gateway_integration.dtp_post_tests_mock"]

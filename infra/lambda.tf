@@ -11,21 +11,7 @@ resource "aws_lambda_function" "fake_dtp_api" {
 resource "aws_iam_role" "lambda_exec_role" {
   count               = "${var.mot_DtP_mock_api_enabled}"
   name                = "lambda-exec-role-${var.environment}"
-  assume_role_policy  = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
-}
-EOF
+  assume_role_policy  = "${data.template_file.lambda_assume_policy.rendered}"
 }
 
 resource "aws_lambda_permission" "apigateway_lambda" {

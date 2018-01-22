@@ -11,7 +11,7 @@ variable aws_region {
 }
 
 variable aws_account_id {
-  default = "425110442143"
+  default = "054631451206"
 }
 
 variable mot_DtP_mock_api_enabled {
@@ -22,7 +22,7 @@ variable dtp_api_version {
   default = "v1"
 }
 
-variable api_gateway_log_retention {
+variable logs_retention {
   default = "30"
 }
 
