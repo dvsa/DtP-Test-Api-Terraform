@@ -1,5 +1,9 @@
 variable "project" {
-  default = "Develop-The-Profession-MOCK"
+  default = "Develop-The-Profession"
+}
+
+variable "component" {
+  default = "api-mock"
 }
 
 variable "environment" {

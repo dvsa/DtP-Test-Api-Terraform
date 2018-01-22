@@ -1,6 +1,6 @@
 resource "aws_lambda_function" "fake_dtp_api" {
   count             = "${var.mot_DtP_mock_api_enabled}"
-  function_name     = "${var.project}_${var.environment}"
+  function_name     = "${var.project}-${var.environment}-${var.component}-fake-api"
   handler           = "src/index.handler"
   runtime           = "nodejs6.10"
   filename          = "${var.dtp_lambda_zip_location}"
@@ -8,7 +8,7 @@ resource "aws_lambda_function" "fake_dtp_api" {
   role              = "${aws_iam_role.lambda_exec_role.arn}"
   
   tags {
-    Name            = "${var.project}-${var.environment}-ApiGateway"
+    Name            = "${var.project}-${var.environment}-fake-api"
     Project         = "${var.project}"
     Environment     = "${var.environment}"
   }
@@ -16,7 +16,7 @@ resource "aws_lambda_function" "fake_dtp_api" {
 
 resource "aws_iam_role" "lambda_exec_role" {
   count               = "${var.mot_DtP_mock_api_enabled}"
-  name                = "lambda-exec-role_${var.project}_${var.environment}"
+  name                = "${var.project}-${var.environment}-${var.component}-lambda-exec-role"
   assume_role_policy  = "${data.template_file.lambda_assume_policy.rendered}"
 }
 

@@ -9,7 +9,7 @@ resource "aws_api_gateway_resource" "tests_resource" {
 resource "aws_api_gateway_request_validator" "post_tests_resource_validator" {
   count                       = "${var.mot_DtP_mock_api_enabled}"  
   rest_api_id                 = "${aws_api_gateway_rest_api.dtp_mock.id}"
-  name                        = "${var.aws_region}-post_tests_resource_validator-${var.environment}"
+  name                        = "${var.project}-${var.environment}-${var.component}-post-tests-resource-validator"
   validate_request_body       = true
   validate_request_parameters = true
 }
