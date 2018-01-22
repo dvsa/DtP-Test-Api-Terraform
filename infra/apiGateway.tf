@@ -1,6 +1,6 @@
 resource "aws_api_gateway_rest_api" "dtp_mock" {
   count = "${var.mot_DtP_mock_api_enabled}"  
-  name  = "mockDevelopTheProfesionApi-${var.environment}"
+  name  = "${var.project}_${var.environment}"
 }
 
 resource "aws_api_gateway_documentation_part" "dtp_mock_post" {

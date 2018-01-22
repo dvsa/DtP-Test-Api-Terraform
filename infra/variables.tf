@@ -10,10 +10,6 @@ variable aws_region {
   default = "eu-west-1"
 }
 
-variable aws_account_id {
-  default = "054631451206"
-}
-
 variable mot_DtP_mock_api_enabled {
   default = true
 }

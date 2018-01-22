@@ -14,7 +14,7 @@ data "template_file" "lambda_enable_cwlogs_policy" {
   template = "${file("${path.module}/templates/policy/lambda_enable_cwlogs_policy.json.tpl")}"
   vars {
     aws_region = "${var.aws_region}",
-    account_id = "${var.aws_account_id}",
+    account_id = "${data.aws_caller_identity.current.account_id}",
     lambda_function = "${aws_lambda_function.fake_dtp_api.arn}"
   }
 }
