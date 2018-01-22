@@ -4,3 +4,7 @@
 
 # Module directory
 .terraform/
+.DS_Store
+.nyc_output/
+dist/
+node_modules/
