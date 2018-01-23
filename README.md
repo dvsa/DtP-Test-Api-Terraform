@@ -9,8 +9,9 @@ To simulate all possible responses we deliver few predefined forename prefixes w
 |Forename|Http code|Description|
 |-|-|-|
 |success|200|It mimics properly processed request|
-|dataError|422|It mimics data error. It is supporting NODVSAID, NOMATCH or SYSERR. To select behavior add the StatusCode to the forename as a suffix.|
+|dataError|422|It mimics data error. It is supporting NOMATCH or SYSERR. To select behavior add the StatusCode to the forename as a suffix.|
 |serverError|503|It mimics service unavailable. Empty body will be returned.|
+||429||
 
 If not listed above forename will be send then message "Internal server error - Incorrect test data" with 500 http code will be returned. 
 
@@ -77,8 +78,7 @@ If the service is unavailable for any reason an HTTP 503 Service Unavailable res
 |StatusCode|Description|
 |-|-|
 |OK|Record processed successfully.|
-|NODVSAID|Could not find a record matching the dvsaId.|
-|NOMATCH|The dvsaId and the dob did not match a record, one or the other is incorrect.|
+|NOMATCH|The dvsaId and the dob did not match a record, one or the other is incorrect. Or could not find a record matching the dvsaId|
 |SYSERR|System error.|
 
 ### Example JSON Failure Code

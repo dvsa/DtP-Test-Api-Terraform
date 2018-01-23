@@ -10,7 +10,7 @@
     "statusCode" : {
       "description": "Processing result",
       "type" : "string",
-      "enum" : [ "OK", "NODVSAID", "NOMATCH", "SYSERR" ]
+      "enum" : [ "OK", "NOMATCH", "SYSERR" ]
     }
   }
 }
