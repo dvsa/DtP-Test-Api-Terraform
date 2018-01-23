@@ -11,7 +11,6 @@ To simulate all possible responses we deliver few predefined forename prefixes w
 |success|200|It mimics properly processed request|
 |dataError|422|It mimics data error. It is supporting NOMATCH or SYSERR. To select behavior add the StatusCode to the forename as a suffix.|
 |serverError|503|It mimics service unavailable. Empty body will be returned.|
-||429||
 
 If not listed above forename will be send then message "Internal server error - Incorrect test data" with 500 http code will be returned. 
 
@@ -73,6 +72,7 @@ An additional process will also be required to disable the user accounts of all 
 If there is no match for the userId and dob in the database the record will be rejected. When the data has been corrected at source it should be sent again as usual in a subsequent API call and will be processed as normal. If the data is thought to be incorrect within the DVSA system (incorrect dob) then the data should be corrected by the tester in MTS and the results resubmitted again. It is accepted that this may result in the same record being rejected multiple times until the data (dob) is corrected.
 
 If the service is unavailable for any reason an HTTP 503 Service Unavailable response code will be returned.
+If usage plan throttling or quota limit is exceed then HTTP 429 Too Many Requests response code will be returned.
 
 ### Status Codes
 |StatusCode|Description|
