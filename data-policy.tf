@@ -15,6 +15,6 @@ data "template_file" "lambda_enable_cwlogs_policy" {
   vars {
     aws_region = "${var.aws_region}",
     account_id = "${data.aws_caller_identity.current.account_id}",
-    lambda_function = "${aws_lambda_function.fake_dtp_api.arn}"
+    lambda_function = "${aws_lambda_function.fake_taa_api.arn}"
   }
 }

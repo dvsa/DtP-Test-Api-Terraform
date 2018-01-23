@@ -15,7 +15,7 @@ resource "aws_iam_role_policy" "cloudwatch" {
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_log_group" {
-  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.dtp_mock.id}/${var.dtp_api_version}"
+  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.taa_mock.id}/${var.taa_api_version}"
   retention_in_days = "${var.logs_retention}"
 
   tags {

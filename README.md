@@ -1,5 +1,5 @@
 
-# DtP-api-mock
+# taa-api-mock
 Mock of Develop the Profession API created using AWS Api Gateway, AWS Lambda and Terraform.
 
 # [Software Development Quality Assurance Policy](docs/NodejsDevQuality.md)

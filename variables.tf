@@ -14,11 +14,11 @@ variable "aws_region" {
   default = "eu-west-1"
 }
 
-variable "mot_DtP_mock_api_enabled" {
+variable "mot_taa_mock_api_enabled" {
   default = true
 }
 
-variable "dtp_api_version" {
+variable "taa_api_version" {
   default = "v1"
 }
 

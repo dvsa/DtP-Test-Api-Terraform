@@ -1,14 +1,14 @@
 # /tests
 resource "aws_api_gateway_resource" "tests_resource" {
-  count       = "${var.mot_DtP_mock_api_enabled}"  
-  rest_api_id = "${aws_api_gateway_rest_api.dtp_mock.id}"
-  parent_id   = "${aws_api_gateway_rest_api.dtp_mock.root_resource_id}"
+  count       = "${var.mot_taa_mock_api_enabled}"  
+  rest_api_id = "${aws_api_gateway_rest_api.taa_mock.id}"
+  parent_id   = "${aws_api_gateway_rest_api.taa_mock.root_resource_id}"
   path_part   = "tests"
 }
 
 resource "aws_api_gateway_request_validator" "post_tests_resource_validator" {
-  count                       = "${var.mot_DtP_mock_api_enabled}"  
-  rest_api_id                 = "${aws_api_gateway_rest_api.dtp_mock.id}"
+  count                       = "${var.mot_taa_mock_api_enabled}"  
+  rest_api_id                 = "${aws_api_gateway_rest_api.taa_mock.id}"
   name                        = "${var.project}-${var.environment}-${var.component}-post-tests-resource-validator"
   validate_request_body       = true
   validate_request_parameters = true
@@ -16,8 +16,8 @@ resource "aws_api_gateway_request_validator" "post_tests_resource_validator" {
 
 # POST /tests
 resource "aws_api_gateway_method" "post_tests_resource" {
-  count         = "${var.mot_DtP_mock_api_enabled}"  
-  rest_api_id   = "${aws_api_gateway_rest_api.dtp_mock.id}"
+  count         = "${var.mot_taa_mock_api_enabled}"  
+  rest_api_id   = "${aws_api_gateway_rest_api.taa_mock.id}"
   resource_id   = "${aws_api_gateway_resource.tests_resource.id}"
   http_method   = "POST"
   authorization = "NONE"
@@ -36,14 +36,14 @@ resource "aws_api_gateway_method" "post_tests_resource" {
   }
 }
 
-resource "aws_api_gateway_integration" "dtp_post_tests_mock" {
-  count                   = "${var.mot_DtP_mock_api_enabled}"
-  rest_api_id             = "${aws_api_gateway_rest_api.dtp_mock.id}"
+resource "aws_api_gateway_integration" "taa_post_tests_mock" {
+  count                   = "${var.mot_taa_mock_api_enabled}"
+  rest_api_id             = "${aws_api_gateway_rest_api.taa_mock.id}"
   resource_id             = "${aws_api_gateway_resource.tests_resource.id}"
   http_method             = "${aws_api_gateway_method.post_tests_resource.http_method}"
   integration_http_method = "POST"
   type                    = "AWS"
-  uri                     = "arn:aws:apigateway:${var.aws_region}:lambda:path/2015-03-31/functions/${aws_lambda_function.fake_dtp_api.arn}/invocations"
+  uri                     = "arn:aws:apigateway:${var.aws_region}:lambda:path/2015-03-31/functions/${aws_lambda_function.fake_taa_api.arn}/invocations"
   passthrough_behavior    = "NEVER"
   content_handling = "CONVERT_TO_TEXT"
 
@@ -52,9 +52,9 @@ resource "aws_api_gateway_integration" "dtp_post_tests_mock" {
   }
 }
 
-resource "aws_api_gateway_method_response" "dtp_post_tests_mock_200" {
-  count       = "${var.mot_DtP_mock_api_enabled}"
-  rest_api_id = "${aws_api_gateway_rest_api.dtp_mock.id}"
+resource "aws_api_gateway_method_response" "taa_post_tests_mock_200" {
+  count       = "${var.mot_taa_mock_api_enabled}"
+  rest_api_id = "${aws_api_gateway_rest_api.taa_mock.id}"
   resource_id = "${aws_api_gateway_resource.tests_resource.id}"
   http_method = "${aws_api_gateway_method.post_tests_resource.http_method}"
   status_code = "200"
@@ -64,85 +64,85 @@ resource "aws_api_gateway_method_response" "dtp_post_tests_mock_200" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "dtp_post_tests_mock_200" {
-  count             = "${var.mot_DtP_mock_api_enabled}"
-  rest_api_id       = "${aws_api_gateway_rest_api.dtp_mock.id}"
+resource "aws_api_gateway_integration_response" "taa_post_tests_mock_200" {
+  count             = "${var.mot_taa_mock_api_enabled}"
+  rest_api_id       = "${aws_api_gateway_rest_api.taa_mock.id}"
   resource_id       = "${aws_api_gateway_resource.tests_resource.id}"
   http_method       = "${aws_api_gateway_method.post_tests_resource.http_method}"
-  status_code       = "${aws_api_gateway_method_response.dtp_post_tests_mock_200.status_code}"
+  status_code       = "${aws_api_gateway_method_response.taa_post_tests_mock_200.status_code}"
   selection_pattern = ".*success.*"
 
   response_templates = {
     "application/json" = "${data.template_file.200_response_integration_mapping.rendered}"
   }
 
-  depends_on = ["aws_api_gateway_integration_response.dtp_post_tests_mock_422"]
+  depends_on = ["aws_api_gateway_integration_response.taa_post_tests_mock_422"]
 }
 
-resource "aws_api_gateway_method_response" "dtp_post_tests_mock_422" {
-  count       = "${var.mot_DtP_mock_api_enabled}"
-  rest_api_id = "${aws_api_gateway_rest_api.dtp_mock.id}"
+resource "aws_api_gateway_method_response" "taa_post_tests_mock_422" {
+  count       = "${var.mot_taa_mock_api_enabled}"
+  rest_api_id = "${aws_api_gateway_rest_api.taa_mock.id}"
   resource_id = "${aws_api_gateway_resource.tests_resource.id}"
   http_method = "${aws_api_gateway_method.post_tests_resource.http_method}"
   status_code = "422"
 }
 
-resource "aws_api_gateway_integration_response" "dtp_post_tests_mock_422" {
-  count             = "${var.mot_DtP_mock_api_enabled}"
-  rest_api_id       = "${aws_api_gateway_rest_api.dtp_mock.id}"
+resource "aws_api_gateway_integration_response" "taa_post_tests_mock_422" {
+  count             = "${var.mot_taa_mock_api_enabled}"
+  rest_api_id       = "${aws_api_gateway_rest_api.taa_mock.id}"
   resource_id       = "${aws_api_gateway_resource.tests_resource.id}"
   http_method       = "${aws_api_gateway_method.post_tests_resource.http_method}"
-  status_code       = "${aws_api_gateway_method_response.dtp_post_tests_mock_422.status_code}"
+  status_code       = "${aws_api_gateway_method_response.taa_post_tests_mock_422.status_code}"
   selection_pattern = ".*dataError.*"
 
   response_templates = {
     "application/json" = "${data.template_file.422_response_integration_mapping.rendered}"
   }
 
-  depends_on = ["aws_api_gateway_integration_response.dtp_post_tests_mock_503"]
+  depends_on = ["aws_api_gateway_integration_response.taa_post_tests_mock_503"]
 }
 
-resource "aws_api_gateway_method_response" "dtp_post_tests_mock_503" {
-  count       = "${var.mot_DtP_mock_api_enabled}"
-  rest_api_id = "${aws_api_gateway_rest_api.dtp_mock.id}"
+resource "aws_api_gateway_method_response" "taa_post_tests_mock_503" {
+  count       = "${var.mot_taa_mock_api_enabled}"
+  rest_api_id = "${aws_api_gateway_rest_api.taa_mock.id}"
   resource_id = "${aws_api_gateway_resource.tests_resource.id}"
   http_method = "${aws_api_gateway_method.post_tests_resource.http_method}"
   status_code = "503"
 }
 
-resource "aws_api_gateway_integration_response" "dtp_post_tests_mock_503" {
-  count             = "${var.mot_DtP_mock_api_enabled}"
-  rest_api_id       = "${aws_api_gateway_rest_api.dtp_mock.id}"
+resource "aws_api_gateway_integration_response" "taa_post_tests_mock_503" {
+  count             = "${var.mot_taa_mock_api_enabled}"
+  rest_api_id       = "${aws_api_gateway_rest_api.taa_mock.id}"
   resource_id       = "${aws_api_gateway_resource.tests_resource.id}"
   http_method       = "${aws_api_gateway_method.post_tests_resource.http_method}"
-  status_code       = "${aws_api_gateway_method_response.dtp_post_tests_mock_503.status_code}"
+  status_code       = "${aws_api_gateway_method_response.taa_post_tests_mock_503.status_code}"
   selection_pattern = ".*serverError.*"
 
   response_templates = {
     "application/json" = "${data.template_file.503_response_integration_mapping.rendered}"
   }
 
-  depends_on = ["aws_api_gateway_integration_response.dtp_post_tests_mock_500"]
+  depends_on = ["aws_api_gateway_integration_response.taa_post_tests_mock_500"]
 }
 
-resource "aws_api_gateway_method_response" "dtp_post_tests_mock_500" {
-  count       = "${var.mot_DtP_mock_api_enabled}"
-  rest_api_id = "${aws_api_gateway_rest_api.dtp_mock.id}"
+resource "aws_api_gateway_method_response" "taa_post_tests_mock_500" {
+  count       = "${var.mot_taa_mock_api_enabled}"
+  rest_api_id = "${aws_api_gateway_rest_api.taa_mock.id}"
   resource_id = "${aws_api_gateway_resource.tests_resource.id}"
   http_method = "${aws_api_gateway_method.post_tests_resource.http_method}"
   status_code = "500"
 }
 
-resource "aws_api_gateway_integration_response" "dtp_post_tests_mock_500" {
-  count             = "${var.mot_DtP_mock_api_enabled}"
-  rest_api_id       = "${aws_api_gateway_rest_api.dtp_mock.id}"
+resource "aws_api_gateway_integration_response" "taa_post_tests_mock_500" {
+  count             = "${var.mot_taa_mock_api_enabled}"
+  rest_api_id       = "${aws_api_gateway_rest_api.taa_mock.id}"
   resource_id       = "${aws_api_gateway_resource.tests_resource.id}"
   http_method       = "${aws_api_gateway_method.post_tests_resource.http_method}"
-  status_code       = "${aws_api_gateway_method_response.dtp_post_tests_mock_500.status_code}"
+  status_code       = "${aws_api_gateway_method_response.taa_post_tests_mock_500.status_code}"
 
   response_templates = {
     "application/json" = "${data.template_file.500_response_integration_mapping.rendered}"
   }
   
-  depends_on = ["aws_api_gateway_integration.dtp_post_tests_mock"]
+  depends_on = ["aws_api_gateway_integration.taa_post_tests_mock"]
 }
