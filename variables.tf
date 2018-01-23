@@ -70,6 +70,10 @@ variable "Kainos_usage_plan" {
   }
 }
 
-variable "dtp_lambda_zip_location" {
-  default = "./app/dist/fakeDtPapi.zip"
+variable "bucket_prefix" {
+  default = ""
+}
+
+variable "lambda_s3_key" {
+  default = ""
 }

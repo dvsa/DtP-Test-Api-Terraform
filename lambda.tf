@@ -3,8 +3,8 @@ resource "aws_lambda_function" "fake_dtp_api" {
   function_name     = "${var.project}-${var.environment}-${var.component}-fake-api"
   handler           = "src/index.handler"
   runtime           = "nodejs6.10"
-  filename          = "${var.dtp_lambda_zip_location}"
-  source_code_hash  = "${base64sha256(file("${var.dtp_lambda_zip_location}"))}"
+  s3_bucket         = "${var.bucket_prefix}${var.environment}"
+  s3_key            = "${var.lambda_s3_key}"
   role              = "${aws_iam_role.lambda_exec_role.arn}"
   
   tags {
