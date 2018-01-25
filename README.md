@@ -17,7 +17,7 @@ If not listed above forename will be send then message "Internal server error - 
 
 # Data
 The structure of the data is expected to be text in JSON format. The data will contain the following mandatory fields:
-### Header
+### Data header
 |Name|Description|
 |-|-|
 |organisation|The source of the data. [ABC, IMI or C&G ]|
